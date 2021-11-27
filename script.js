@@ -91,15 +91,3 @@ function showMyDB(hidden){
 }
 
 showMyDB(personalMovieDB.privat);
-
-
-
-
-
-
-
-
-
-
-
-
