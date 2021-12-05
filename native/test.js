@@ -17,3 +17,18 @@
 // console.log(a);
 
 
+let a = {
+    name: 'asd',
+    id: 123,
+};
+
+// console.log('id' in a);
+// console.log('age' in a);
+
+// console.log(a.name !== undefined);
+// console.log(a.age);
+
+console.log(a.hasOwnProperty('age'));
+
+
+
