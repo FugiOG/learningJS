@@ -10,7 +10,7 @@
 window.addEventListener('DOMContentLoaded', ()=>{
     const box = document.querySelector('.box');
 
-    boentLx.addEventListener('touchstart', (e) => {
+    box.addEventListener('touchstart', (e) => {
         e.preventDefault();
 
         console.log('Start');
