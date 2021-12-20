@@ -20,10 +20,10 @@
 // console.log(document.querySelector('[data-current="3"]').previousElementSibling); //предыдущий соседний //!элемент
 
 //* Перебирание всех узлов внутри childNodes (childNodes - псевдомассив с итератором):
-for (const node of document.body.childNodes) { //* в данном случае цикл перебирает всех детей тега body
-    if(node.nodeName == '#text'){
-        continue;
-    }
-    console.log(node);
-}
+// for (const node of document.body.childNodes) { //* в данном случае цикл перебирает всех детей тега body
+//     if(node.nodeName == '#text'){
+//         continue;
+//     }
+//     console.log(node);
+// }
 
