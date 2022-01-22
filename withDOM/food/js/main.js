@@ -98,9 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
         item.addEventListener('click', openModal);
     });
 
-    function closeModal (elem) {
-        elem.classList.add('hide');
-        elem.classList.remove('show');
+    function closeModal () {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
         document.body.style.overflow = '';
     }
 
@@ -225,9 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             form.insertAdjacentElement('afterend', statusMessage); //* расположение спинера svg под формой
 
-            const request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
-            request.setRequestHeader('Content-type', 'application/json'); //* ЕСЛИ МЫ ИСПОЛЬЗУЕМ СВЯЗКУ XMLHttpRequest() и FormData() ЗАГОЛОВОК УСТАНАВЛИВАТЬ НЕ НУЖНО
 
             const formData = new FormData(form); //* ДОСТАЁТ ДАННЫЕ ИЗ ИНПУТОВ ФОРМЫ (ТОЛЬКО ПРИ НАЛИЧИИ АТРИБУТА - name) 
            
@@ -237,18 +234,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const json = JSON.stringify(object);
-            request.send(json);
 
-            request.addEventListener('load', () => {
-                if (request.status === 200){
-                    console.log(request.response);
-                    showThanksModal(message.success);
-                    form.reset(); //* очистка формы
-                    statusMessage.remove();
-                }else{
-                    showThanksModal(message.failure);
-                }
+            fetch('server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: json
+            })
+            .finally(() => {
+                form.reset();
+            })
+            .then(data => data.text())
+            .then(data => {
+                console.log(data);
+                showThanksModal(message.success);
+                statusMessage.remove();
+            }).catch(() => {
+                showThanksModal(message.failure);
             });
+
         });
     }
 
@@ -276,4 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 4000);
     }
+
+
 });
