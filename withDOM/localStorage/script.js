@@ -11,8 +11,12 @@
 
 const checkbox = document.querySelector('#checkbox'),
       form = document.querySelector('form'),
-      colorBtn = document.querySelector('#color');
+      colorBtn = document.querySelector('#color'),
+      confirm = document.querySelector('.btn');
 
+confirm.addEventListener('click', (e) => {
+    e.preventDefault();
+});
 
 if (localStorage.getItem('isChecked')){
     checkbox.checked = true;
