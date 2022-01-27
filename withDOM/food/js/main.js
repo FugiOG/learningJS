@@ -341,6 +341,18 @@ document.addEventListener('DOMContentLoaded', () => {
         indicators.append(dot);
     }
 
+    function addZeroOnCondition(numb){
+        if (numb < 10){
+            return `0${slideIndex}`;
+        }
+        return numb;
+    }
+
+    function changeCurrentOpacity (arr, pos){
+        arr.forEach(item => item.style.opacity = .5);
+        arr[pos - 1].style.opacity = 1;
+    }
+
     dots.forEach(dot => {
         dot.addEventListener('click', (e) => {
             // if (e.target.getAttribute('data-slide-to') == slideIndex){
@@ -350,57 +362,51 @@ document.addEventListener('DOMContentLoaded', () => {
             offset = parseInt(width) * (e.target.getAttribute('data-slide-to') - 1);
             slidesField.style.transform = `translateX(-${offset}px)`;
 
-            if (slideIndex < 10){
-                current.textContent = `0${slideIndex}`;
-            }else { 
-                current.textContent = slideIndex;
-            }
+            current.textContent = addZeroOnCondition(slideIndex);
 
-            dots.forEach(dot => dot.style.opacity = .5);
-            dots[slideIndex - 1].style.opacity = 1;
+            changeCurrentOpacity(dots, slideIndex);
         });
     });
 
+    function deleteNotDigits(str) {
+        return +str.replace(/\D/g, '')
+    }
+
     next.addEventListener('click', () => {
-        if (offset == parseInt(width) * (slides.length - 1)){
+        if (offset == deleteNotDigits(width) * (slides.length - 1)){
             offset = 0;
             slideIndex = 1;
         }else {
             slideIndex++;
-            offset += parseInt(width);
+            offset += deleteNotDigits(width);
         }
 
         slidesField.style.transform = `translateX(-${offset}px)`;
 
-        if (slideIndex < 10){
-            current.textContent = `0${slideIndex}`;
-        }else { 
-            current.textContent = slideIndex;
-        }
+        current.textContent = addZeroOnCondition(slideIndex);
 
-        dots.forEach(dot => dot.style.opacity = .5);
-        dots[slideIndex - 1].style.opacity = 1;
+        changeCurrentOpacity(dots, slideIndex);
     });
 
     prev.addEventListener('click', () => {
         if (offset == 0){
             slideIndex = slides.length;
-            offset = parseInt(width) * (slides.length - 1);
+            offset = deleteNotDigits(width) * (slides.length - 1);
         }else {
             slideIndex--;
-            offset -= parseInt(width);
+            offset -= deleteNotDigits(width);
         }
+
+        //* Аналоги parseInt(width):
+        //? 1 - console.log(+width.match(/\d/g).join(''));
+        //? 2 - console.log(+width.replace(/\D/g, ''));
+
 
         slidesField.style.transform = `translateX(-${offset}px)`;
 
-        if (slideIndex < 10){
-            current.textContent = `0${slideIndex}`;
-        }else { 
-            current.textContent = slideIndex;
-        }
+        current.textContent = addZeroOnCondition(slideIndex);
 
-        dots.forEach(dot => dot.style.opacity = .5);
-        dots[slideIndex - 1].style.opacity = 1;
+        changeCurrentOpacity(dots, slideIndex);
     });
 
     //? АЛЬТЕРНАТИВА:
