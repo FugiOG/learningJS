@@ -39,5 +39,6 @@ console.log(user.age);
 user.age = 36; 
 console.log(user.age);
 
+ 
 
 console.log(JSON.stringify(Object.getOwnPropertyDescriptors(user), 0, 2));
