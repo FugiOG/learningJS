@@ -2,7 +2,6 @@ import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {Header} from './App';
 
 // const elem = <h2>Hello World!</h2>; //jsx
 
