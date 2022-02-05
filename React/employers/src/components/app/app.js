@@ -48,24 +48,24 @@ class App extends Component {
         }))
     }
 
-    searchEmp = (items, term, filter) => {
-        let newItems;
+    searchEmp = (items, term) => {
         if (term.length === 0) {
-            newItems = items;
-        }else{
-            newItems = items.filter(item => {
-                return item.name.indexOf(term) > -1
-            })
+            return items;
         }
+        return items.filter(item => {
+            return item.name.indexOf(term) > -1
+        })
+    }
 
+    filterPost = (items, filter) => {
         if (filter === 'all'){
-            return newItems;
+            return items;
         }
         if (filter === 'salary'){
-            return newItems.filter(item =>  parseInt(item[filter]) > 1000);
+            return items.filter(item =>  parseInt(item[filter]) > 1000);
         }
 
-        return newItems.filter(item => item[filter])
+        return items.filter(item => item[filter])
     }
 
     onUppdateSearch = (term) => {
@@ -80,7 +80,7 @@ class App extends Component {
         const {data, term, filter} = this.state;
         const employees = this.state.data.length;
         const increased = this.state.data.filter(item => item.increase).length;
-        const visibleData = this.searchEmp(data, term, filter);
+        const visibleData = this.filterPost(this.searchEmp(data, term), filter);
 
         return (
             <div className="app">
@@ -88,7 +88,7 @@ class App extends Component {
     
                 <div className="search-panel">
                     <SearchPanel onUppdateSearch={this.onUppdateSearch}/>
-                    <AppFilter onUppdateFilter={this.onUppdateFilter}/>
+                    <AppFilter filter={filter} onUppdateFilter={this.onUppdateFilter}/>
                 </div>
                 
                 <EmployeesList 
