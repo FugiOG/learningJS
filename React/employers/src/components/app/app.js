@@ -18,7 +18,9 @@ class App extends Component {
                 {name: "John C.", salary: 800, increase: false, rise: true, id: uuidv1()},
                 {name: "Alex M.", salary: 1000, increase: true, rise: false, id: uuidv1()},
                 {name: "Carl S.", salary: 6000, increase: false, rise: false, id: uuidv1()}
-            ]
+            ],
+            term: '',
+            filter: 'all'
         }
     }
 
@@ -46,22 +48,51 @@ class App extends Component {
         }))
     }
 
+    searchEmp = (items, term, filter) => {
+        let newItems;
+        if (term.length === 0) {
+            newItems = items;
+        }else{
+            newItems = items.filter(item => {
+                return item.name.indexOf(term) > -1
+            })
+        }
+
+        if (filter === 'all'){
+            return newItems;
+        }
+        if (filter === 'salary'){
+            return newItems.filter(item =>  parseInt(item[filter]) > 1000);
+        }
+
+        return newItems.filter(item => item[filter])
+    }
+
+    onUppdateSearch = (term) => {
+        this.setState({term})
+    }
+
+    onUppdateFilter = (filter) => {
+        this.setState({filter})
+    }
 
     render() {
+        const {data, term, filter} = this.state;
         const employees = this.state.data.length;
         const increased = this.state.data.filter(item => item.increase).length;
+        const visibleData = this.searchEmp(data, term, filter);
 
         return (
             <div className="app">
                 <AppInfo employees={employees} increased={increased}/>
     
                 <div className="search-panel">
-                    <SearchPanel/>
-                    <AppFilter/>
+                    <SearchPanel onUppdateSearch={this.onUppdateSearch}/>
+                    <AppFilter onUppdateFilter={this.onUppdateFilter}/>
                 </div>
                 
                 <EmployeesList 
-                    data={this.state.data} 
+                    data={visibleData} 
                     onDelete={this.deleteItem}
                     onToggleProp={this.onToggleProp}/>
     

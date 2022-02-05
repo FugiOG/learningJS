@@ -1,27 +1,51 @@
+import { Component } from 'react';
 import './app-filter.css';
 
-const AppFilter = () => {
-    return (
-        <div className="btn-group">
-            <button 
-            className="btn btn-light"
-            type="button">
-                Все сотрудники
-            </button>
+class AppFilter extends Component{
+    constructor(props) {
+        super(props);
 
-            <button 
-            className="btn btn-outline-light"
-            type="button">
-                На повышение
-            </button>
+        this.state = {
+            filter: 'all'
+        }
+    }
 
-            <button 
-            className="btn btn-outline-light"
-            type="button">
-                З/П больше 1000$
-            </button>
-        </div>
-    )
+    onUppdateFilter = (e) => {
+        const filter = e.currentTarget.getAttribute('data-filter');
+
+        this.setState({filter})
+        this.props.onUppdateFilter(filter)
+    }
+
+    render() {
+        return (
+            <div className="btn-group">
+                <button 
+                className={this.state.filter === 'all'? "btn btn-light": "btn btn-outline-light"}
+                type="button"
+                data-filter="all"
+                onClick={this.onUppdateFilter}>
+                    Все сотрудники
+                </button>
+    
+                <button 
+                className={this.state.filter === 'rise'? "btn btn-light": "btn btn-outline-light"}
+                type="button"
+                data-filter="rise"
+                onClick={this.onUppdateFilter}>
+                    На повышение
+                </button>
+    
+                <button 
+                className={this.state.filter === 'salary'? "btn btn-light": "btn btn-outline-light"}
+                type="button"
+                data-filter="salary"
+                onClick={this.onUppdateFilter}>
+                    З/П больше 1000$
+                </button>
+            </div>
+        )
+    }
 }
 
 export default AppFilter;
