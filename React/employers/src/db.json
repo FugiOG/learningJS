@@ -1,0 +1,7 @@
+{
+    "data": [
+        {"name": "John C.", "salary": 800, "increase": false, "rise": true},
+        {"name": "Alex M.", "salary": 1000, "increase": true, "rise": false},
+        {"name": "Carl S.", "salary": 6000, "increase": false, "rise": false}
+    ]
+}

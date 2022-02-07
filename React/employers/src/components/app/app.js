@@ -9,15 +9,16 @@ import EmployeesList from '../employees-list/employees-list';
 import EmployeesAddForm from '../employees-add-form/employees-add-form';
 import './app.css';
 
+
 class App extends Component {
     constructor (props) {
         super(props);
 
         this.state = {
-            data: [
-                {name: "John C.", salary: 800, increase: false, rise: true, id: uuidv1()},
-                {name: "Alex M.", salary: 1000, increase: true, rise: false, id: uuidv1()},
-                {name: "Carl S.", salary: 6000, increase: false, rise: false, id: uuidv1()}
+            data:[
+                {"name": "John C.", "salary": 800, "increase": false, "rise": true, "id": uuidv1()},
+                {"name": "Alex M.", "salary": 1000, "increase": true, "rise": false, "id": uuidv1()},
+                {"name": "Carl S.", "salary": 6000, "increase": false, "rise": false, "id": uuidv1()}
             ],
             term: '',
             filter: 'all'
