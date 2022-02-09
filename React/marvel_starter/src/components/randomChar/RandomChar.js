@@ -7,16 +7,15 @@ import Spinner from '../spinner/spinner';
 import ErrorMessage from '../errorMessage/errorMessage';
 
 class RandomChar extends Component {
-    constructor (props) {
-        super(props);
-
-        this.updateChar();
-    }
 
     state = {
         char : {},
         loading: true,
         error: false
+    }
+
+    componentDidMount() {
+        this.updateChar();
     }
 
     onError = () => {
